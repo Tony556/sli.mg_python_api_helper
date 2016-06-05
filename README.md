@@ -91,7 +91,7 @@ Here's a nice list of Functions:
       - `mediaSecrets` does not work yet.
 
 
- - `updateAlbum(albumKey, same as createAlbum)`
+- `updateAlbum(albumKey, same as createAlbum)`
 
     - Updates album based on arguments
 
