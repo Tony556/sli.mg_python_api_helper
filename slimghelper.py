@@ -1,4 +1,4 @@
-import requests, json, base64, time
+import requests, json, base64, time, threading
 
 
 class slimgHelper(object):
@@ -29,6 +29,8 @@ class slimgHelper(object):
 
         self.payload = {'client_id': self.client_id, 'access_token': self.access_token}
 
+        threading.Timer(self.expires_in, self.GetAccessRefreshTokens()).start()
+
         if (returnTokens):
             return {'access_token': self.access_token, 'refresh_token': self.refresh_token}
         else:
@@ -57,8 +59,8 @@ class slimgHelper(object):
         else:
             return currentInfo
 
-    def createMedia(self, type, data, size=None, title=None, description=None, shared=None, album_key=None,
-                    album_secret=None, tags=None, waitForUploadCompletionForDataReturn=False):
+    def createMedia(self, type, data, size=None, title=None, description=None, shared=None, albumKey=None,
+                    albumSecret=None, tags=None, waitForUploadCompletionForDataReturn=False):
         url = 'https://api.sli.mg/media'
 
         if (type == 'binary'):
@@ -77,8 +79,8 @@ class slimgHelper(object):
                         'title': title,
                         'description': description,
                         'shared': shared,
-                        'album_key': album_key,
-                        'album_secret': album_secret,
+                        'album_key': albumKey,
+                        'album_secret': albumSecret,
                         'tags': tags
                         })
 
