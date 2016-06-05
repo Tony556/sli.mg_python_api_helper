@@ -1,4 +1,5 @@
-import requests, json, base64, time, threading
+import requests, json, base64, time
+
 
 
 class slimgHelper(object):
@@ -6,33 +7,33 @@ class slimgHelper(object):
 
     def __init__(self, client_id='', client_secret=''):
         super(slimgHelper, self).__init__()
-        #Initializing properties
+        # Initializing properties
 
         # ID and Secret are found on the account page
         self.client_id = client_id
         self.client_secret = client_secret
 
-        #To be filled in by getAccessRefreshTokens
+        # To be filled in by getAccessRefreshTokens
         self.access_token = ''
         self.refresh_token = ''
 
-        #Unused?
+        # Unused?
         self.expires_in = 85800
 
-        #Default payload for 'anon' logins
+        # Default payload for 'anon' logins
         self.payload = {'client_id': client_id}
 
-        #Header for 'anon' logins
+        # Header for 'anon' logins
         if (client_secret == ''):
-            self.headers = {'Authorization': 'Client-ID '+client_id}
+            self.headers = {'Authorization': 'Client-ID ' + client_id}
         else:
             self.headers = {}
 
-    #Used in getting the dict from the JSON data
+    # Used in getting the dict from the JSON data
     def JsonAsDict(self, requestInstance):
         return json.loads(requestInstance.text)['data']
 
-    #Used when using the Client ID and Access Token
+    # Used when using the Client ID and Access Token
     def getAccessRefreshTokens(self, returnTokens=False):
         url = 'https://api.sli.mg/token'
         payload = {'grant_type': 'client_credentials', 'client_id': self.client_id, 'client_secret': self.client_secret}
@@ -131,7 +132,7 @@ class slimgHelper(object):
 
         return self.JsonAsDict(requests.post(url, data=self.payload, headers=self.headers))
 
-    def deleteMedia(self, mediaKey, mediaSecret = ''):
+    def deleteMedia(self, mediaKey, mediaSecret=''):
         url = 'https://api.sli.mg/media/{}/{}'.format(mediaKey, mediaSecret)
 
         return self.JsonAsDict(requests.delete(url, params=self.payload, headers=self.headers))
@@ -149,10 +150,10 @@ class slimgHelper(object):
 
         payload.update(self.payload)
 
-        if(mediaKeys is not None):
+        if (mediaKeys is not None):
             mediaKeys = ','.join(mediaKeys)
 
-        if(mediaSecrets is not None):
+        if (mediaSecrets is not None):
             mediaSecrets = ','.join(mediaSecrets)
 
         payload.update({'description': description,
@@ -167,7 +168,8 @@ class slimgHelper(object):
 
         return self.JsonAsDict(requests.post(url, data=self.payload, headers=self.headers))
 
-    def updateAlbum(self, albumKey, description=None, shared=None, mediaKeys=None, mediaSecrets=None, tags=None, albumSecret=''):
+    def updateAlbum(self, albumKey, description=None, shared=None, mediaKeys=None, mediaSecrets=None, tags=None,
+                    albumSecret=''):
         url = 'https://api.sli.mg/album/{}/{}'.format(albumKey, albumSecret)
 
         payload = {}

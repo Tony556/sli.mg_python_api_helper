@@ -8,7 +8,7 @@ This wrapper is designed to help Python developers use the image hosting website
 
 ----
 
-To begin using it, you must import it using `from slimghelper import slimgHelper`
+To begin using it, you must download slimghelper.py, put it into the folder where you are developing, and import it using `from slimghelper import slimgHelper`
 
 Then initialize it, you will need your Client ID and Client Secret for this next step. You can get those by reading through [this simple tutorial - https://sli.mg/public/api#getstarted.](https://sli.mg/public/api#getstarted)
 
