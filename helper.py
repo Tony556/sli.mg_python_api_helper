@@ -131,10 +131,10 @@ class slimgHelper(object):
 
         payload.update(self.payload)
 
-        if (mediaKeys is not None):
+        if(mediaKeys is not None):
             mediaKeys = ','.join(mediaKeys)
 
-        if (mediaSecrets is not None):
+        if(mediaSecrets is not None):
             mediaSecrets = ','.join(mediaSecrets)
 
         payload.update({'description': description,
@@ -149,9 +149,8 @@ class slimgHelper(object):
 
         return self.JsonAsDict(requests.post(url, data=self.payload))
 
-    def updateAlbum(self, albumKey, description=None, shared=None, mediaKeys=None, mediaSecrets=None, tags=None,
-                    albumSecret=None):
-        if (self.isAnon):
+    def updateAlbum(self, albumKey, description=None, shared=None, mediaKeys=None, mediaSecrets=None, tags=None, albumSecret=None):
+        if(self.isAnon):
             url = 'https://api.sli.mg/album/{}/{}'.format(albumKey, albumSecret)
         else:
             url = 'https://api.sli.mg/album/{}'.format(albumKey)
@@ -201,3 +200,4 @@ class slimgHelper(object):
 
     def browsePublicByTag(self, tag, type='sfw', page=1):
         url = 'https://api.sli.mg/browse/{}/{}/{}'.format(tag, type, page)
+        return self.JsonAsDict(requests.get(url, params=self.payload))
